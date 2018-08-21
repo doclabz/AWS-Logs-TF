@@ -1,5 +1,5 @@
 resource "aws_iam_role" "configRole" {
-  name = "configRole"
+  name = "configRole-${var.aws-region}"
 
   assume_role_policy = <<EOF
     {
@@ -19,7 +19,7 @@ EOF
 }
 
 resource "aws_iam_role_policy" "configpolicy" {
-  name = "awsconfig-example"
+  name = "configRolePolicy-${var.aws-region}"
   role = "${aws_iam_role.configRole.id}"
 
   policy = <<POLICY
@@ -42,6 +42,6 @@ POLICY
 }
 
 resource "aws_iam_role_policy_attachment" "config-attach" {
-  role       = "${aws_iam_role.role.configRole}"
+  role       = "${aws_iam_role.configRole.name}"
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSConfigRole"
 }
