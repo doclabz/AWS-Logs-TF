@@ -36,7 +36,7 @@ resource "aws_s3_bucket" "configBucket" {
   }
 
   logging {
-    target_bucket = "${aws_s3_bucket.log_bucket.id}"
+    target_bucket = "${var.aws-region}-${data.aws_caller_identity.current.account_id}-s3-access-logs"
     target_prefix = "${var.aws-region}-${data.aws_caller_identity.current.account_id}-config/"
   }
 
